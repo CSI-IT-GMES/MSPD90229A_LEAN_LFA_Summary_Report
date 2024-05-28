@@ -138,6 +138,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CryptHelper.cs" />
+    <Compile Include="MSPD90229A_POP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MSPD90229A_POP.designer.cs">
+      <DependentUpon>MSPD90229A_POP.cs</DependentUpon>
+    </Compile>
     <Compile Include="MSPD90229A.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +156,9 @@
     <Compile Include="Helper\MyMergedCell.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MSPD90229A_POP.resx">
+      <DependentUpon>MSPD90229A_POP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MSPD90229A.resx">
       <DependentUpon>MSPD90229A.cs</DependentUpon>
       <SubType>Designer</SubType>

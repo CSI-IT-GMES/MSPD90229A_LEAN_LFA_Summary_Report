@@ -95,10 +95,10 @@ namespace CSI.GMES.PD
                 lbDate.Location = new Point(3, 13);
                 cboDate.Location = new Point(68, 13);
 
-                lbGreen.Location = new Point(540, 13);
-                lbYellow.Location = new Point(702, 13);
-                lbRed.Location = new Point(849, 13);
-                lbBlack.Location = new Point(996, 13);
+                lbGreen.Location = new Point(670, 13);
+                lbYellow.Location = new Point(832, 13);
+                lbRed.Location = new Point(979, 13);
+                lbBlack.Location = new Point(1126, 13);
 
                 lbGreen.Text = "90% <= Rate <= 100%";
                 lbYellow.Text = "80% <= Rate < 90%";
@@ -113,6 +113,9 @@ namespace CSI.GMES.PD
 
                 btnConfirm.Visible = false;
                 btnConfirm.Location = new Point(888, 8);
+
+                btnUnconfirm.Visible = true;
+                btnUnconfirm.Location = new Point(535, 13);
             }
             else if (_tab.Equals(1))
             {
@@ -157,6 +160,9 @@ namespace CSI.GMES.PD
 
                 btnConfirm.Visible = true;
                 btnConfirm.Location = new Point(420, 8);
+
+                btnUnconfirm.Visible = false;
+                btnUnconfirm.Location = new Point(1004, 8);
 
                 if (_null_mline)
                 {
@@ -1439,13 +1445,6 @@ namespace CSI.GMES.PD
                 DialogResult dlr;
                 int _result_qty = 0, _max_qty = 0; ;
 
-                DataTable _dtPermiss = GetData("Q_PERMISS");
-                if(_dtPermiss == null || _dtPermiss.Rows.Count < 1)
-                {
-                    MessageBox.Show("Bạn không có quyền thực hiện chức năng này!!!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 DataTable _dtf = GetDataTable(gvwDetail);
                 DataTable _dtLink = _dtf.Select("METHOD_NAME_VN IS NOT NULL", "").CopyToDataTable();
 
@@ -1691,7 +1690,7 @@ namespace CSI.GMES.PD
 
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -1926,7 +1925,7 @@ namespace CSI.GMES.PD
 
                 return htmlReturn;
             }
-            catch (Exception ex)
+            catch
             {
                 return "";
             }
@@ -1943,6 +1942,25 @@ namespace CSI.GMES.PD
                     cell.Value = numericValue; // Assign the numeric value to the cell
                 }
             }
+        }
+
+        private void btnUnconfirm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable _dtPermiss = GetData("Q_PERMISS");
+                if (_dtPermiss == null || _dtPermiss.Rows.Count < 1)
+                {
+                    MessageBox.Show("Bạn không có quyền thực hiện chức năng này!!!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                MSPD90229A_POP view = new MSPD90229A_POP();
+                view.SetBrowserMain(this._browserMain);
+                view.ShowDialog();
+
+            }
+            catch { }
         }
 
         #endregion

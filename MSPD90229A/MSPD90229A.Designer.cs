@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MSPD90229A));
             DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
             DevExpress.XtraCharts.ConstantLine constantLine1 = new DevExpress.XtraCharts.ConstantLine();
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.SideBySideBarSeriesLabel sideBySideBarSeriesLabel1 = new DevExpress.XtraCharts.SideBySideBarSeriesLabel();
             DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView1 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MSPD90229A));
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
@@ -46,6 +46,7 @@
             DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView2 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
             DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
             this.panTop = new JPlatform.Client.Controls6.PanelEx();
+            this.btnUnconfirm = new DevExpress.XtraEditors.SimpleButton();
             this.tlpMain = new System.Windows.Forms.Panel();
             this.chart1 = new DevExpress.XtraCharts.ChartControl();
             this.btnConfirm = new DevExpress.XtraEditors.SimpleButton();
@@ -153,6 +154,7 @@
             // panTop
             // 
             this.panTop.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panTop.Controls.Add(this.btnUnconfirm);
             this.panTop.Controls.Add(this.tlpMain);
             this.panTop.Controls.Add(this.btnConfirm);
             this.panTop.Controls.Add(this.lbGroup);
@@ -177,6 +179,17 @@
             this.panTop.Name = "panTop";
             this.panTop.Size = new System.Drawing.Size(1233, 75);
             this.panTop.TabIndex = 25;
+            // 
+            // btnUnconfirm
+            // 
+            this.btnUnconfirm.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUnconfirm.Image = ((System.Drawing.Image)(resources.GetObject("btnUnconfirm.Image")));
+            this.btnUnconfirm.Location = new System.Drawing.Point(1004, 8);
+            this.btnUnconfirm.Name = "btnUnconfirm";
+            this.btnUnconfirm.Size = new System.Drawing.Size(115, 25);
+            this.btnUnconfirm.TabIndex = 555;
+            this.btnUnconfirm.Text = "Unconfirm";
+            this.btnUnconfirm.Click += new System.EventHandler(this.btnUnconfirm_Click);
             // 
             // tlpMain
             // 
@@ -1012,6 +1025,7 @@
         private DevExpress.XtraEditors.SimpleButton btnConfirm;
         private System.Windows.Forms.Panel tlpMain;
         private DevExpress.XtraCharts.ChartControl chart1;
+        private DevExpress.XtraEditors.SimpleButton btnUnconfirm;
     }
 }
 
