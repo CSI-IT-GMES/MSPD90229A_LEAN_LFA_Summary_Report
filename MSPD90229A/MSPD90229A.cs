@@ -62,6 +62,8 @@ namespace CSI.GMES.PD
             cboMonth.EditValue = DateTime.Now.ToString();
             panTop.BackColor = Color.FromArgb(240, 240, 240);
             tabControl.BackColor = Color.FromArgb(240, 240, 240);
+            txtPIC.BackColor = Color.FromArgb(255, 228, 225);
+            txtPIC.Font = new System.Drawing.Font("Calibri", 12, FontStyle.Regular);
 
             InitCombobox();
             FormatLayout();
@@ -77,6 +79,8 @@ namespace CSI.GMES.PD
 
                 cboMonth.Visible = true;
                 cboDate.Visible = false;
+                lblPIC.Visible = false;
+                txtPIC.Visible = false;
 
                 cboMonth.Location = new Point(68, 13);
                 cboDate.Location = new Point(551, 13);
@@ -123,9 +127,13 @@ namespace CSI.GMES.PD
 
                 cboMonth.Visible = false;
                 cboDate.Visible = true;
+                lblPIC.Visible = true;
+                txtPIC.Visible = true;
 
                 cboDate.Location = new Point(68, 8);
                 cboMonth.Location = new Point(551, 8);
+                lblPIC.Location = new Point(550, 8);
+                txtPIC.Location = new Point(640, 8);
 
                 lbFactory.Visible = true;
                 lbPlant.Visible = true;
@@ -273,6 +281,19 @@ namespace CSI.GMES.PD
 
                     if (_dtSource != null && _dtSource.Rows.Count > 0)
                     {
+                        if (!string.IsNullOrEmpty(_dtSource.Rows[0]["CHECK_USER"].ToString()))
+                        {
+                            lblPIC.Visible = true;
+                            txtPIC.Visible = true;
+                            txtPIC.Text = _dtSource.Rows[0]["CHECK_USER"].ToString();
+                        }
+                        else
+                        {
+                            lblPIC.Visible = false;
+                            txtPIC.Visible = false;
+                            txtPIC.Text = "";
+                        }
+
                         for (int iRow = 0; iRow < _dtSource.Rows.Count; iRow++)
                         {
                             if (!string.IsNullOrEmpty(_dtSource.Rows[iRow]["GRP_NAME_VN"].ToString()))
@@ -493,15 +514,15 @@ namespace CSI.GMES.PD
             try
             {
                 DialogResult dlr;
-                int _result_qty = 0, _max_qty = 0; ;
+                double _result_qty = 0, _max_qty = 0; ;
 
                 DataTable _dtf = BindingData(grdDetail, true, false);
                 if (_dtf != null && _dtf.Rows.Count > 0)
                 {
                     for (int iRow = 0; iRow < _dtf.Rows.Count; iRow++)
                     {
-                        _max_qty = string.IsNullOrEmpty(_dtf.Rows[iRow]["MAX_SCORE"].ToString()) ? 0 : Int32.Parse(_dtf.Rows[iRow]["MAX_SCORE"].ToString());
-                        _result_qty = string.IsNullOrEmpty(_dtf.Rows[iRow]["RESULT_SCORE"].ToString()) ? 0 : Int32.Parse(_dtf.Rows[iRow]["RESULT_SCORE"].ToString());
+                        _max_qty = string.IsNullOrEmpty(_dtf.Rows[iRow]["MAX_SCORE"].ToString()) ? 0 : Double.Parse(_dtf.Rows[iRow]["MAX_SCORE"].ToString());
+                        _result_qty = string.IsNullOrEmpty(_dtf.Rows[iRow]["RESULT_SCORE"].ToString()) ? 0 : Double.Parse(_dtf.Rows[iRow]["RESULT_SCORE"].ToString());
 
                         if (_result_qty < 0 || _result_qty > _max_qty)
                         {
@@ -1091,6 +1112,27 @@ namespace CSI.GMES.PD
                     {
                         if (_allow_confirm)
                         {
+                            if(!string.IsNullOrEmpty(gvwDetail.GetRowCellValue(e.RowHandle, e.Column.FieldName.ToString()).ToString()))
+                            {
+                                DialogResult dlr = MessageBox.Show("Bạn có muốn xóa ảnh không?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (dlr == DialogResult.Yes)
+                                {
+                                    string _stype = e.Column.FieldName.ToString().Equals("PHOTO") ? "DEL_PHOTO" : "DEL_AFTER_PHOTO";
+                                    bool result = SaveData(_stype);
+                                    if (result)
+                                    {
+                                        MessageBoxW("Delete Photo successfully!", IconType.Information);
+                                        QueryClick();
+                                    }
+                                    else
+                                    {
+                                        MessageBoxW("Delete failed!", IconType.Warning);
+                                    }
+
+                                    return;
+                                }
+                            }
+
                             openFileDialog.FileName = "";
                             openFileDialog.Filter = "Image Files(*.png;*.jpg;*.jpeg;*.bmp)|*.png;*.jpg;*.jpeg;.bmp;";
 
@@ -1238,6 +1280,11 @@ namespace CSI.GMES.PD
                 {
                     e.Cancel = true;
                 }
+
+                if(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "LINK_YN").ToString().ToUpper().Equals("Y"))
+                {
+                    e.Cancel = true;
+                }
             }
             catch { }
         }
@@ -1381,6 +1428,24 @@ namespace CSI.GMES.PD
                                                   "CSI.GMES.PD.MSPD90229A_Q");
                         _result = CommonProcessSave(dtData, proc.ProcName, proc.GetParamInfo(), null);
                         break;
+                    case "DEL_PHOTO":
+                    case "DEL_AFTER_PHOTO":
+                        dtData = proc.SetParamData(dtData,
+                                                  _type,
+                                                  gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "PLANT_CD").ToString(),
+                                                  gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "LINE_CD").ToString(),
+                                                  gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "MLINE_CD").ToString(),
+                                                  cboDate.yyyymmdd,
+                                                  gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "GRP_CD").ToString(),
+                                                  gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString(),
+                                                  gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "MAX_SCORE").ToString(),
+                                                  "",
+                                                  null,
+                                                  "",
+                                                  machineName,
+                                                  "CSI.GMES.PD.MSPD90229A_Q");
+                        _result = CommonProcessSave(dtData, proc.ProcName, proc.GetParamInfo(), null);
+                        break;
                     case "Q_CONFIRM":
                         DataTable _dtSource = GetDataTable(gvwDetail);
                         DataTable _dtLink = _dtSource.Select("METHOD_NAME_VN IS NOT NULL", "").CopyToDataTable();
@@ -1401,7 +1466,7 @@ namespace CSI.GMES.PD
                                                  _dtLink.Rows[iRow]["GRP_CD"].ToString(),
                                                  _dtLink.Rows[iRow]["ITEM_CD"].ToString(),
                                                  _dtLink.Rows[iRow]["MAX_SCORE"].ToString(),
-                                                 _dtLink.Rows[iRow]["RESULT_SCORE"].ToString(),
+                                                 string.IsNullOrEmpty(_dtLink.Rows[iRow]["RESULT_SCORE"].ToString()) ? "0" : _dtLink.Rows[iRow]["RESULT_SCORE"].ToString(),
                                                  null,
                                                  _txt_counter,
                                                  machineName,
@@ -1449,7 +1514,7 @@ namespace CSI.GMES.PD
                 if (grdDetail.DataSource == null || gvwDetail.RowCount < 1) return;
 
                 DialogResult dlr;
-                int _result_qty = 0, _max_qty = 0; ;
+                double _result_qty = 0, _max_qty = 0; ;
 
                 DataTable _dtf = GetDataTable(gvwDetail);
                 DataTable _dtLink = _dtf.Select("METHOD_NAME_VN IS NOT NULL", "").CopyToDataTable();
@@ -1458,8 +1523,8 @@ namespace CSI.GMES.PD
                 {
                     for (int iRow = 0; iRow < _dtLink.Rows.Count; iRow++)
                     {
-                        _max_qty = string.IsNullOrEmpty(_dtLink.Rows[iRow]["MAX_SCORE"].ToString()) ? 0 : Int32.Parse(_dtLink.Rows[iRow]["MAX_SCORE"].ToString());
-                        _result_qty = string.IsNullOrEmpty(_dtLink.Rows[iRow]["RESULT_SCORE"].ToString()) ? 0 : Int32.Parse(_dtLink.Rows[iRow]["RESULT_SCORE"].ToString());
+                        _max_qty = string.IsNullOrEmpty(_dtLink.Rows[iRow]["MAX_SCORE"].ToString()) ? 0 : Double.Parse(_dtLink.Rows[iRow]["MAX_SCORE"].ToString());
+                        _result_qty = string.IsNullOrEmpty(_dtLink.Rows[iRow]["RESULT_SCORE"].ToString()) ? 0 : Double.Parse(_dtLink.Rows[iRow]["RESULT_SCORE"].ToString());
 
                         if (_result_qty < 0 || _result_qty > _max_qty)
                         {
