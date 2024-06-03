@@ -68,6 +68,8 @@ namespace CSI.GMES.PD
             lbTotal.Font = new System.Drawing.Font("Calibri", 14, FontStyle.Bold | FontStyle.Italic);
             lblTotal.Font = new System.Drawing.Font("Times New Roman", 18, FontStyle.Bold | FontStyle.Italic);
             txtPIC.ForeColor = Color.FromArgb(0, 104, 140);
+            txtPIC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            txtPIC.Width = 550;
 
             lbTotal.Appearance.BackColor = System.Drawing.Color.Teal;
             lbTotal.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -141,12 +143,12 @@ namespace CSI.GMES.PD
                 cboDate.Visible = true;
                 txtPIC.Visible = true;
                 btnExplain.Visible = true;
-                lbTotal.Visible = true;
-                lblTotal.Visible = true;
+                lbTotal.Visible = false;
+                lblTotal.Visible = false;
 
                 cboDate.Location = new Point(68, 8);
                 cboMonth.Location = new Point(551, 8);
-                txtPIC.Location = new Point(720, 8);
+                txtPIC.Location = new Point(750, 8);
                 btnExplain.Location = new Point(540, 8);
                 pnDesc.Location = new Point(542, 36);
 
@@ -344,6 +346,7 @@ namespace CSI.GMES.PD
                             else if (_rateQty >= 80 && _rateQty < 90)
                             {
                                 lblTotal.BackColor = Color.Yellow;
+                                lblTotal.ForeColor = Color.Black;
                             }
                             else if (_rateQty >= 70 && _rateQty < 80)
                             {
@@ -1671,6 +1674,11 @@ namespace CSI.GMES.PD
                         {
                             e.Appearance.BackColor = Color.Green;
                             e.Appearance.ForeColor = Color.White;
+                        }
+                        else if (_rateQty == 2)
+                        {
+                            e.Appearance.BackColor = Color.Yellow;
+                            e.Appearance.ForeColor = Color.Black;
                         }
                     }
                 }
