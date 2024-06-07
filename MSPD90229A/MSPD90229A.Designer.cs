@@ -714,6 +714,7 @@
             this.chartData.PaletteRepository.Add("Palette 2", new DevExpress.XtraCharts.Palette("Palette 2", DevExpress.XtraCharts.PaletteScaleMode.Repeat, new DevExpress.XtraCharts.PaletteEntry[] {
                 new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.Green, System.Drawing.Color.Green),
                 new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.Red, System.Drawing.Color.Red)}));
+            this.chartData.RuntimeHitTesting = true;
             sideBySideBarSeriesLabel2.Border.Visibility = DevExpress.Utils.DefaultBoolean.True;
             sideBySideBarSeriesLabel2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             sideBySideBarSeriesLabel2.TextPattern = "{V:#,0.#} %";
@@ -733,6 +734,7 @@
             this.chartData.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
             chartTitle1});
             this.chartData.CustomDrawCrosshair += new DevExpress.XtraCharts.CustomDrawCrosshairEventHandler(this.chartData_CustomDrawCrosshair);
+            this.chartData.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chartData_MouseClick);
             // 
             // splitterControlEx1
             // 

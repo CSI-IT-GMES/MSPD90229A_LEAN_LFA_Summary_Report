@@ -2172,6 +2172,61 @@ namespace CSI.GMES.PD
             pnDesc.Visible = false;
         }
 
+        private void chartData_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Hand;
+
+                ChartControl chart = sender as ChartControl;
+                if (chart == null || chart.DataSource == null) return;
+
+                // Get hit information under the mouse cursor
+                ChartHitInfo hitInfo = chart.CalcHitInfo(e.Location);
+
+                // Check if the clicked element is a series point
+                if (hitInfo.InSeries && hitInfo.SeriesPoint != null)
+                {
+                    // Get the argument of the clicked point
+                    string _col_nm = hitInfo.SeriesPoint.Argument;
+
+                    for (int iRow = 0; iRow < _dtChartSource.Rows.Count; iRow++)
+                    {
+                        if (_dtChartSource.Rows[iRow]["LINE_NM"].ToString() == _col_nm)
+                        {
+                            string _fty_cd = _dtChartSource.Rows[iRow]["FTY_CD"].ToString();
+                            string _line_cd = _dtChartSource.Rows[iRow]["LINE_CD"].ToString();
+                            string _mline_cd = _dtChartSource.Rows[iRow]["MLINE_CD"].ToString();
+                            string _date = cboMonth.yyyymm;
+
+                            ////Disable auto change 
+                            _firstLoad = true;
+
+                            cboDate.EditValue = _date + "01";
+                            cboFactory.EditValue = _fty_cd;
+                            LoadDataCbo(cboPlant, "Plant", "Q_LINE");
+                            cboPlant.EditValue = _line_cd.Contains("_") ? _line_cd.Substring(0, 3) : _line_cd;
+                            LoadDataCbo(cboLine, "Line", "Q_MLINE");
+                            cboLine.EditValue = _mline_cd;
+                            tabControl.SelectedTabPageIndex = 1;
+
+                            ////Click event
+                            QueryClick();
+
+                            ////Open auto change 
+                            _firstLoad = false;
+
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         #endregion
 
         #region Database
