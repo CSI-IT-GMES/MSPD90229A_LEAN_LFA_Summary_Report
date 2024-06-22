@@ -138,7 +138,7 @@ namespace CSI.GMES.PD
 
                 cboDate.Location = new Point(68, 8);
                 cboMonth.Location = new Point(551, 8);
-                txtPIC.Location = new Point(900, 8);
+                txtPIC.Location = new Point(750, 8);
                 btnExplain.Location = new Point(685, 8);
                 btnLink.Location = new Point(540, 8);
                 pnDesc.Location = new Point(685, 36);
