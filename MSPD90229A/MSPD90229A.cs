@@ -1314,7 +1314,9 @@ namespace CSI.GMES.PD
                 if(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "LINK_YN").ToString().ToUpper().Equals("Y"))
                 {
                     if(!(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "GRP_CD").ToString().ToUpper().Equals("G001") &&
-                        gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString().ToUpper().Equals("I004")))
+                        gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString().ToUpper().Equals("I004")) &&
+                    !(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "GRP_CD").ToString().ToUpper().Equals("G004") &&
+                        gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString().ToUpper().Equals("I005")))
                     {
                         e.Cancel = true;
                     }
