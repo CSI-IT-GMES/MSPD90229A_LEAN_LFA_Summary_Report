@@ -304,6 +304,27 @@ namespace CSI.GMES.PD
                             txtPIC.Text = "";
                         }
 
+                        /////Disable Link Data Button
+                        int iCount = 0;
+
+                        for(int iRow = 0; iRow < _dtSource.Rows.Count; iRow++)
+                        {
+                            if (_dtSource.Rows[iRow]["LINK_YN"].ToString().Equals("Y"))
+                            {
+                                iCount++;
+                                break;
+                            }
+                        }
+
+                        if(iCount > 0 && _allow_confirm)
+                        {
+                            btnLink.Enabled = true;
+                        }
+                        else
+                        {
+                            btnLink.Enabled = false;
+                        }
+
                         double _rateQty = Double.Parse(FormatNumber(_dtSource.Rows[_dtSource.Rows.Count - 1]["RESULT_RATE"].ToString()));
 
                         for (int iRow = 0; iRow < _dtSource.Rows.Count; iRow++)
@@ -1311,14 +1332,25 @@ namespace CSI.GMES.PD
                     e.Cancel = true;
                 }
 
-                if(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "LINK_YN").ToString().ToUpper().Equals("Y"))
+                if (gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "LINK_YN").ToString().ToUpper().Equals("Y"))
                 {
-                    if(!(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "GRP_CD").ToString().ToUpper().Equals("G001") &&
-                        gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString().ToUpper().Equals("I004")) &&
-                    !(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "GRP_CD").ToString().ToUpper().Equals("G004") &&
-                        gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString().ToUpper().Equals("I005")))
+                    if (_format_cd.Equals("F001") || _format_cd.Equals("F002"))
                     {
-                        e.Cancel = true;
+                        if (!(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "GRP_CD").ToString().ToUpper().Equals("G001") &&
+                            gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString().ToUpper().Equals("I004")) &&
+                        !(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "GRP_CD").ToString().ToUpper().Equals("G004") &&
+                            gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString().ToUpper().Equals("I005")))
+                        {
+                            e.Cancel = true;
+                        }
+                    }
+                    else if (_format_cd.Equals("F003"))
+                    {
+                        if (!(gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "GRP_CD").ToString().ToUpper().Equals("G005") &&
+                            gvwDetail.GetRowCellValue(gvwDetail.FocusedRowHandle, "ITEM_CD").ToString().ToUpper().Equals("I001")))
+                        {
+                            e.Cancel = true;
+                        }
                     }
                 }
             }
