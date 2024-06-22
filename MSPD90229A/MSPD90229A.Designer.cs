@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MSPD90229A));
             DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
             DevExpress.XtraCharts.ConstantLine constantLine1 = new DevExpress.XtraCharts.ConstantLine();
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
@@ -45,9 +44,8 @@
             DevExpress.XtraCharts.SideBySideBarSeriesLabel sideBySideBarSeriesLabel2 = new DevExpress.XtraCharts.SideBySideBarSeriesLabel();
             DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView2 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
             DevExpress.XtraCharts.ChartTitle chartTitle1 = new DevExpress.XtraCharts.ChartTitle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MSPD90229A));
             this.panTop = new JPlatform.Client.Controls6.PanelEx();
-            this.lbTotal = new JPlatform.Client.Controls6.LabelEx();
-            this.lblTotal = new System.Windows.Forms.Label();
             this.btnExplain = new DevExpress.XtraEditors.SimpleButton();
             this.txtPIC = new JPlatform.Client.Controls6.LabelEx();
             this.btnUnconfirm = new DevExpress.XtraEditors.SimpleButton();
@@ -96,6 +94,7 @@
             this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
             this.gridViewEx3 = new JPlatform.Client.Controls6.GridViewEx();
             this.pnDesc = new System.Windows.Forms.Panel();
+            this.btnLink = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.FormMessages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FoemComboInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BaseTextEditEx.Properties)).BeginInit();
@@ -159,8 +158,7 @@
             // panTop
             // 
             this.panTop.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panTop.Controls.Add(this.lbTotal);
-            this.panTop.Controls.Add(this.lblTotal);
+            this.panTop.Controls.Add(this.btnLink);
             this.panTop.Controls.Add(this.btnExplain);
             this.panTop.Controls.Add(this.txtPIC);
             this.panTop.Controls.Add(this.btnUnconfirm);
@@ -189,36 +187,6 @@
             this.panTop.Size = new System.Drawing.Size(1680, 75);
             this.panTop.TabIndex = 25;
             // 
-            // lbTotal
-            // 
-            this.lbTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbTotal.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(234)))), ((int)(((byte)(247)))));
-            this.lbTotal.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotal.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.lbTotal.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lbTotal.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.lbTotal.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
-            this.lbTotal.Location = new System.Drawing.Point(1481, 8);
-            this.lbTotal.Name = "lbTotal";
-            this.lbTotal.Size = new System.Drawing.Size(74, 57);
-            this.lbTotal.TabIndex = 570;
-            this.lbTotal.Text = "Total Rate";
-            this.lbTotal.Visible = false;
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTotal.BackColor = System.Drawing.Color.White;
-            this.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTotal.Font = new System.Drawing.Font("Calibri", 70F, System.Drawing.FontStyle.Bold);
-            this.lblTotal.ForeColor = System.Drawing.Color.Black;
-            this.lblTotal.Location = new System.Drawing.Point(1555, 8);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(115, 57);
-            this.lblTotal.TabIndex = 569;
-            this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTotal.Visible = false;
-            // 
             // btnExplain
             // 
             this.btnExplain.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -233,6 +201,7 @@
             // 
             // txtPIC
             // 
+            this.txtPIC.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.txtPIC.Appearance.Font = new System.Drawing.Font("Calibri", 12F);
             this.txtPIC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
             this.txtPIC.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -988,6 +957,17 @@
             this.pnDesc.TabIndex = 567;
             this.pnDesc.Visible = false;
             // 
+            // btnLink
+            // 
+            this.btnLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLink.Image = ((System.Drawing.Image)(resources.GetObject("btnLink.Image")));
+            this.btnLink.Location = new System.Drawing.Point(1324, 8);
+            this.btnLink.Name = "btnLink";
+            this.btnLink.Size = new System.Drawing.Size(135, 25);
+            this.btnLink.TabIndex = 568;
+            this.btnLink.Text = "Get Link Data";
+            this.btnLink.Click += new System.EventHandler(this.btnLink_Click);
+            // 
             // MSPD90229A
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1107,8 +1087,7 @@
         private JPlatform.Client.Controls6.LabelEx txtPIC;
         private System.Windows.Forms.Panel pnDesc;
         private DevExpress.XtraEditors.SimpleButton btnExplain;
-        private System.Windows.Forms.Label lblTotal;
-        private JPlatform.Client.Controls6.LabelEx lbTotal;
+        private DevExpress.XtraEditors.SimpleButton btnLink;
     }
 }
 
