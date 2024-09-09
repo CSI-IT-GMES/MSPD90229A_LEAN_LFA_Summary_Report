@@ -2189,8 +2189,6 @@ namespace CSI.GMES.PD
         {
             try
             {
-                this.Cursor = Cursors.Hand;
-
                 ChartControl chart = sender as ChartControl;
                 if (chart == null || chart.DataSource == null) return;
 
